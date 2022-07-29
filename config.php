@@ -24,4 +24,5 @@ $config['ftpPassword'] = 'password';
 //Paramètres divers
 $config['interval'] = 5; //Intervalle d'enregistrement datalogger
 $config['days'] = 2; //Jours de données à envoyer
+$config['getHiLo'] = false; //Mettre true si WeeWX est modifié pour recevoir les température min et max à chaque intervalle
 ?>

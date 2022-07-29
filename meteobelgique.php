@@ -14,7 +14,13 @@ require_once('config.php');
 date_default_timezone_set('Europe/Brussels');
 
 $db = new mysqli($config['sqlServer'], $config['sqlUser'], $config['sqlPassword'], $config['sqlDatabase']);
-$sql = "SELECT dateTime, usUnits, outTemp, outHumidity, barometer, dewpoint, radiation, UV, windGust, windDir, rain, soilTemp1 FROM ".$config['sqlTable']." ORDER BY dateTime DESC LIMIT ".($config['days']*24*60)/$config['interval'];
+$sql = "SELECT dateTime, usUnits, outTemp, outHumidity, barometer, dewpoint, radiation, UV, windGust, windDir, rain, soilTemp1";
+
+if($config['getHiLo']){
+    $sql .= ", lowOutTemp, highOutTemp";   
+}
+
+$sql .= " FROM ".$config['sqlTable']." ORDER BY dateTime DESC LIMIT ".($config['days']*24*60)/$config['interval'];
 
 $result = $db->query($sql);
 
@@ -42,6 +48,11 @@ while($row = $result->fetch_assoc()){
 		$row['windGust'] = round($row['windGust']*1.60934, 1);
 		$row['rain'] = round($row['rain']*25.4, 1);
 		$row['soilTemp1'] = round(($row['soilTemp1']-32)*5/9, 1);
+        
+        if($config['getHiLo']){
+            $row['lowOutTemp'] = round(($row['lowOutTemp']-32)*5/9, 1);
+            $row['highOutTemp'] = round(($row['highOutTemp']-32)*5/9, 1);
+        }
 	}else if($units == 16){
 		$row['outTemp'] = round($row['outTemp'], 1);
 		$row['dewpoint'] = round($row['dewpoint'], 1);
@@ -49,6 +60,11 @@ while($row = $result->fetch_assoc()){
 		$row['windGust'] = round($row['windGust'], 1);
 		$row['rain'] = round($row['rain']*10, 1);
 		$row['soilTemp1'] = round($row['soilTemp1'], 1);
+        
+        if($config['getHiLo']){
+            $row['lowOutTemp'] = round(($row['lowOutTemp'], 1);
+            $row['highOutTemp'] = round(($row['highOutTemp'], 1);
+        }
 	}else if($units == 17){
 		$row['outTemp'] = round($row['outTemp'], 1);
 		$row['dewpoint'] = round($row['dewpoint'], 1);
@@ -56,6 +72,11 @@ while($row = $result->fetch_assoc()){
 		$row['windGust'] = round($row['windGust']*3.6, 1);
 		$row['rain'] = round($row['rain'], 1);
 		$row['soilTemp1'] = round($row['soilTemp1'], 1);
+        
+        if($config['getHiLo']){
+            $row['lowOutTemp'] = round(($row['lowOutTemp'], 1);
+            $row['highOutTemp'] = round(($row['highOutTemp'], 1);
+        }
 	}
 
 	$row['windDir'] = round($row['windDir'], 1);

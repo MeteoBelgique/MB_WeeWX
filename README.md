@@ -68,9 +68,11 @@ $config['ftpPassword'] = 'password';
 Deux paramètres à donner ici:
 - Le temps (intervalle en minutes) entre deux enregistrements par votre datalogger;
 - Le nombre de jours à envoyer, par défaut 2. Cela peut être utile si la transmission s'est interrompue pendant quelques jours.
+- Si vous avez activé le support pour les températures min et max à chaque enregistrement. Voir: https://github.com/Jterrettaz/archive_min_max_temperature-to-schema
 ```
 $config['interval'] = 5;
 $config['days'] = 2;
+$config['getHiLo'] = false;
 ```
 ### Test d'envoi
 Pour tester le script vous pouvez simplement utiliser la commande suivante:
