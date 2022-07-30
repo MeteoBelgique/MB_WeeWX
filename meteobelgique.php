@@ -62,8 +62,8 @@ while($row = $result->fetch_assoc()){
 		$row['soilTemp1'] = round($row['soilTemp1'], 1);
         
         if($config['getHiLo']){
-            $row['lowOutTemp'] = round(($row['lowOutTemp'], 1);
-            $row['highOutTemp'] = round(($row['highOutTemp'], 1);
+            $row['lowOutTemp'] = round($row['lowOutTemp'], 1);
+            $row['highOutTemp'] = round($row['highOutTemp'], 1);
         }
 	}else if($units == 17){
 		$row['outTemp'] = round($row['outTemp'], 1);
@@ -74,8 +74,8 @@ while($row = $result->fetch_assoc()){
 		$row['soilTemp1'] = round($row['soilTemp1'], 1);
         
         if($config['getHiLo']){
-            $row['lowOutTemp'] = round(($row['lowOutTemp'], 1);
-            $row['highOutTemp'] = round(($row['highOutTemp'], 1);
+            $row['lowOutTemp'] = round($row['lowOutTemp'], 1);
+            $row['highOutTemp'] = round($row['highOutTemp'], 1);
         }
 	}
 
