@@ -36,6 +36,10 @@ for($i = 0; $i < $fields; $i++){
 //Data and conversions
 $count = 1;
 while($row = $result->fetch_assoc()){
+    if($row['outTemp'] == NULL || $row['outHumidity'] == NULL){
+        continue;
+    }
+    
     $out[$count] = array();
 
     $units = $row['usUnits'];
