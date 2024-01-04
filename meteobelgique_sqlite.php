@@ -1,7 +1,7 @@
 <?php
 //
 // Script php pour l'envoi de données météo vers MeteoBelgique
-// depuis le logiciel WeeWX avec base de données MySQL.
+// depuis le logiciel WeeWX avec base de données SQLITE.
 // Infos: https://github.com/MeteoBelgique/MB_WeeWX
 //
 
@@ -13,33 +13,32 @@ require_once('config.php');
 
 date_default_timezone_set('Europe/Brussels');
 
-if($config['dbType'] != "mysql"){
+if($config['dbType'] != "sqlite"){
     die("Type de base de donnnées incorrect. Vérifiez votre configuration.");
 }
 
-$db = new mysqli($config['sqlServer'], $config['sqlUser'], $config['sqlPassword'], $config['sqlDatabase']);
+$db = new SQLite3($config['sqliteFile']);
 $sql = "SELECT dateTime, usUnits, outTemp, outHumidity, barometer, dewpoint, radiation, UV, windGust, windDir, rain, soilTemp1";
 
 if($config['getHiLo']){
     $sql .= ", lowOutTemp, highOutTemp";   
 }
 
-$sql .= " FROM ".$config['sqlTable']." ORDER BY dateTime DESC LIMIT ".($config['days']*24*60)/$config['interval'];
+$sql .= " FROM ".$config['sqliteTable']." ORDER BY dateTime DESC LIMIT ".($config['days']*24*60)/$config['interval'];
 
 $result = $db->query($sql);
 
 $out = array();
 
 //Headers
-$fields = mysqli_num_fields($result);
+$fields = $result->numColumns();
 for($i = 0; $i < $fields; $i++){
-        $fieldInfo = $result->fetch_field_direct($i);
-        $out[0][$i] = $fieldInfo->name;
+        $out[0][$i] = $result->columnName($i);
 }
 
 //Data and conversions
 $count = 1;
-while($row = $result->fetch_assoc()){
+while($row = $result->fetchArray(SQLITE3_ASSOC)){
     if($row['outTemp'] == NULL || $row['outHumidity'] == NULL){
         continue;
     }

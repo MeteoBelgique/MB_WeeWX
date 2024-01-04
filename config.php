@@ -9,6 +9,13 @@
 // Configuration
 //
 
+// Type base de données
+$config['dbType'] = "mysql"; //deux possibilités: mysql, sqlite
+
+//Paramètres sqlite_array_query
+$config['sqliteFile'] = "/var/lib/weewx/weewx.sdb";
+$config['sqliteTable'] = "archive";
+
 //Paramètres MySQL, pour se connecter à la base de données WeeWX
 $config['sqlServer'] = 'localhost';
 $config['sqlUser'] = 'username';
