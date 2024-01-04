@@ -51,7 +51,7 @@ while($row = $result->fetch_assoc()){
 
 	if($units == 1){
 		$row['outTemp'] = round(($row['outTemp']-32)*5/9, 1);
-		$row['dewpoint'] = round(($row['dewpoint']-32)/5/9, 1);
+		$row['dewpoint'] = round(($row['dewpoint']-32)*5/9, 1);
 		$row['barometer'] = round($row['barometer']*33.8639, 1);
 		$row['windGust'] = round($row['windGust']*1.60934, 1);
 		$row['rain'] = round($row['rain']*25.4, 1);
